@@ -1,65 +1,40 @@
-body {
-    background-color: #ffd6e7; /* Light pink background */
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.5s;
-}
+document.addEventListener('DOMContentLoaded', function() {
+    const yesButton = document.getElementById('yes');
+    const noButton = document.getElementById('no');
+    let clickCount = 0;
+    const maxClicks = 15;
+    const scaleFactor = 1.2;
 
-.container {
-    max-width: 800px;
-    padding: 20px;
-}
+    noButton.addEventListener('click', function() {
+        clickCount++;
+        
+        
+        const currentScale = parseFloat(getComputedStyle(yesButton).transform.split(',')[3]) || 1;
+        yesButton.style.transform = `scale(${currentScale * scaleFactor})`;
+        
+        
+        const hue = 340 + (clickCount * 10);
+        document.body.style.backgroundColor = `hsl(${hue}, 100%, 92%)`;
+        
+        
+        if (clickCount >= maxClicks) {
+            noButton.style.display = 'none';
+            yesButton.textContent = "Okay, i will drink water";
+            yesButton.style.transform = 'scale(1.5)';
+            yesButton.style.backgroundColor = '#4CAF50';
+            yesButton.style.color = 'white';
+            
+            
+            const gif = document.createElement('img');
+            gif.src = 'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3JldTRlbGo1cTY3MWw1cmd2NWN0ZjJ5c2Q4eXFzdW1zbW1leXlyNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gHbjuTVHSmlVxRKIHb/giphy.gif';
+            gif.className = 'water-gif';
+            gif.alt = 'Celebration gif';
+            document.querySelector('.container').appendChild(gif);
+            gif.style.display = 'block';
+        }
+    });
 
-h1 {
-    color: #ff6b9d;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-p {
-    margin: 0;
-    padding: 15px 30px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s;
-    font-size: 1.2rem;
-}
-
-#yes {
-    background-color: #a8e6cf;
-    color: #1e6f5c;
-    transform: scale(1);
-    border: none;
-}
-
-#no {
-    background-color: #ffaaa5;
-    color: #9c0d38;
-    border: none;
-}
-
-#no:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.water-gif {
-    max-width: 200px;
-    margin-top: 20px;
-    display: none;
-}
+    yesButton.addEventListener('click', function() {
+        alert("Good Golu, Drink Water");
+    });
+});
